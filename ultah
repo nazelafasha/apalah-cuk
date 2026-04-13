@@ -1,1 +1,286 @@
 
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(800px) rotate(720deg); opacity: 0; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
+    }
+    @keyframes cake-bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes flame {
+      0%, 100% { transform: scaleY(1) scaleX(1); }
+      25% { transform: scaleY(1.1) scaleX(0.9); }
+      50% { transform: scaleY(0.9) scaleX(1.1); }
+      75% { transform: scaleY(1.05) scaleX(0.95); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ribbon-wave {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+    .cake-bounce { animation: cake-bounce 2s ease-in-out infinite; }
+    .flame-anim { animation: flame 0.4s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .slide-up { animation: slide-up 0.8s ease-out forwards; }
+    .ribbon-wave { animation: ribbon-wave 2s ease-in-out infinite; }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: confetti-fall linear forwards;
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      animation: sparkle 1.5s ease-in-out infinite;
+    }
+    .birthday-bg {
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 30%, #4a1942 60%, #1a0a2e 100%);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="birthday-bg w-full h-full overflow-auto relative flex flex-col items-center justify-center" style="font-family: 'Quicksand', sans-serif;"><!-- Confetti Container -->
+   <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div><!-- Sparkles -->
+   <div id="sparkles-container" class="absolute inset-0 pointer-events-none"></div><!-- Main Content -->
+   <div class="relative z-10 flex flex-col items-center px-4 py-8 max-w-lg mx-auto text-center"><!-- Ribbon -->
+    <div class="ribbon-wave mb-4 slide-up" style="animation-delay: 0.1s; opacity: 0;">
+     <div class="px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase" id="ribbon" style="background: linear-gradient(90deg, #ff6b9d, #c44dff); color: #fff;">
+      🎉 Happy Birthday 🎉
+     </div>
+    </div><!-- Cake SVG -->
+    <div class="cake-bounce my-6 slide-up" style="animation-delay: 0.3s; opacity: 0;">
+     <svg width="180" height="200" viewbox="0 0 180 200" fill="none"><!-- Cake base --> <ellipse cx="90" cy="180" rx="80" ry="15" fill="#d4538a" opacity="0.3" /> <!-- Bottom tier --> <rect x="25" y="130" width="130" height="50" rx="8" fill="#ff85b3" /> <rect x="25" y="130" width="130" height="12" rx="6" fill="#ffadd2" /> <!-- Frosting drips bottom --> <path d="M25 142 Q35 155 45 142 Q55 155 65 142 Q75 155 85 142 Q95 155 105 142 Q115 155 125 142 Q135 155 145 142 Q155 155 155 142" stroke="#ffadd2" stroke-width="4" fill="none" /> <!-- Top tier --> <rect x="45" y="85" width="90" height="50" rx="8" fill="#c44dff" /> <rect x="45" y="85" width="90" height="12" rx="6" fill="#d980ff" /> <!-- Frosting drips top --> <path d="M45 97 Q55 110 65 97 Q75 110 85 97 Q95 110 105 97 Q115 110 125 97 Q135 110 135 97" stroke="#d980ff" stroke-width="3" fill="none" /> <!-- Decorations --> <circle cx="55" cy="155" r="4" fill="#ffd700" /> <circle cx="75" cy="160" r="3" fill="#00ffaa" /> <circle cx="95" cy="155" r="4" fill="#ffd700" /> <circle cx="115" cy="160" r="3" fill="#00ffaa" /> <circle cx="135" cy="155" r="4" fill="#ffd700" /> <!-- Stars on top tier --> <text x="65" y="115" font-size="14">
+       ⭐
+      </text> <text x="85" y="118" font-size="12">
+       ✨
+      </text> <text x="105" y="115" font-size="14">
+       ⭐
+      </text> <!-- Candles --> <rect x="70" y="55" width="5" height="32" rx="2" fill="#ffeb3b" /> <rect x="88" y="50" width="5" height="37" rx="2" fill="#ff6b9d" /> <rect x="106" y="55" width="5" height="32" rx="2" fill="#00e5ff" /> <!-- Flames --> <ellipse class="flame-anim" cx="72.5" cy="50" rx="5" ry="8" fill="#ff9800" style="animation-delay:0s" /> <ellipse class="flame-anim" cx="72.5" cy="50" rx="3" ry="5" fill="#ffeb3b" /> <ellipse class="flame-anim" cx="90.5" cy="45" rx="5" ry="8" fill="#ff9800" style="animation-delay:0.15s" /> <ellipse class="flame-anim" cx="90.5" cy="45" rx="3" ry="5" fill="#ffeb3b" /> <ellipse class="flame-anim" cx="108.5" cy="50" rx="5" ry="8" fill="#ff9800" style="animation-delay:0.3s" /> <ellipse class="flame-anim" cx="108.5" cy="50" rx="3" ry="5" fill="#ffeb3b" />
+     </svg>
+    </div><!-- Greeting -->
+    <h1 id="greeting" class="text-4xl md:text-5xl font-black mb-3 slide-up" style="font-family: 'Playfair Display', serif; animation-delay: 0.5s; opacity: 0; background: linear-gradient(90deg, #ff6b9d, #c44dff, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.3;">Selamat Ulang Tahun!</h1><!-- Name -->
+    <div class="slide-up" style="animation-delay: 0.7s; opacity: 0;"><span id="name-display" class="text-3xl md:text-4xl font-bold float-anim inline-block" style="font-family: 'Playfair Display', serif; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.5);"> Sahabat Tersayang </span>
+    </div><!-- Balloons -->
+    <div class="flex justify-center gap-3 my-6 slide-up" style="animation-delay: 0.9s; opacity: 0;"><span class="text-4xl float-anim" style="animation-delay: 0s;">🎈</span> <span class="text-5xl float-anim" style="animation-delay: 0.3s;">🎈</span> <span class="text-4xl float-anim" style="animation-delay: 0.6s;">🎈</span> <span class="text-5xl float-anim" style="animation-delay: 0.9s;">🎈</span> <span class="text-4xl float-anim" style="animation-delay: 1.2s;">🎈</span>
+    </div><!-- Wish Message -->
+    <p id="wish" class="text-lg md:text-xl leading-relaxed mb-8 slide-up max-w-md" style="animation-delay: 1.1s; opacity: 0; color: #e0c3fc;">Semoga semua mimpi dan harapanmu menjadi kenyataan. Sehat selalu dan bahagia selamanya! 🌟💖</p><!-- Blow Candles Button --> <button id="blow-btn" onclick="blowCandles()" class="px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 hover:scale-110 active:scale-95 slide-up pulse-glow cursor-pointer" style="animation-delay: 1.3s; opacity: 0; background: linear-gradient(90deg, #ff6b9d, #c44dff); color: #fff; box-shadow: 0 4px 30px rgba(196, 77, 255, 0.5);"> 🎂 Tiup Lilin! 🎂 </button> <!-- After blow message -->
+    <div id="after-blow" class="hidden mt-6 text-2xl font-bold" style="color: #ffd700;">
+     🎊 Selamat! Semoga Doamu Terkabul! 🎊
+    </div>
+   </div><!-- Music toggle --> <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110 cursor-pointer" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #fff;"> <i data-lucide="music" style="width:20px;height:20px;"></i> </button>
+  </div>
+  <script>
+    // ===== CONFIG =====
+    const defaultConfig = {
+      name: "Sahabat Tersayang",
+      greeting_text: "Selamat Ulang Tahun!",
+      wish_text: "Semoga semua mimpi dan harapanmu menjadi kenyataan. Sehat selalu dan bahagia selamanya! 🌟💖",
+      background_color: "#1a0a2e",
+      surface_color: "#c44dff",
+      text_color: "#e0c3fc",
+      primary_action_color: "#ff6b9d",
+      secondary_action_color: "#ffd700",
+      font_family: "Playfair Display",
+      font_size: 16
+    };
+
+    // ===== CONFETTI =====
+    const confettiColors = ['#ff6b9d','#c44dff','#00e5ff','#ffd700','#ff9800','#00ffaa','#ffeb3b'];
+    function spawnConfetti(count = 40) {
+      const c = document.getElementById('confetti-container');
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        el.style.width = (6 + Math.random() * 8) + 'px';
+        el.style.height = (6 + Math.random() * 8) + 'px';
+        el.style.animationDuration = (2 + Math.random() * 3) + 's';
+        el.style.animationDelay = Math.random() * 2 + 's';
+        c.appendChild(el);
+        setTimeout(() => el.remove(), 6000);
+      }
+    }
+
+    // Sparkles
+    function spawnSparkles() {
+      const c = document.getElementById('sparkles-container');
+      for (let i = 0; i < 15; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.animationDelay = Math.random() * 3 + 's';
+        s.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        c.appendChild(s);
+      }
+    }
+
+    // Initial confetti
+    spawnConfetti(30);
+    spawnSparkles();
+    setInterval(() => spawnConfetti(8), 4000);
+
+    // ===== BLOW CANDLES =====
+    let candlesBlown = false;
+    function blowCandles() {
+      if (candlesBlown) return;
+      candlesBlown = true;
+      // Hide flames
+      document.querySelectorAll('.flame-anim').forEach(f => f.style.display = 'none');
+      // Big confetti burst
+      spawnConfetti(80);
+      // Show message
+      document.getElementById('after-blow').classList.remove('hidden');
+      document.getElementById('after-blow').classList.add('slide-up');
+      document.getElementById('blow-btn').style.opacity = '0.5';
+      document.getElementById('blow-btn').textContent = '✨ Lilin Sudah Ditiup! ✨';
+    }
+
+    // ===== MUSIC (Web Audio API) =====
+    let audioCtx, isPlaying = false;
+    const notes = [523.25,587.33,523.25,698.46,659.25,523.25,587.33,523.25,783.99,698.46,523.25,1046.5,880,698.46,659.25,587.33,932.33,880,698.46,783.99,698.46];
+    const durations = [0.3,0.3,0.4,0.4,0.6,0.3,0.3,0.4,0.4,0.6,0.3,0.3,0.4,0.4,0.3,0.6,0.3,0.3,0.4,0.4,0.8];
+
+    function toggleMusic() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (isPlaying) { isPlaying = false; return; }
+      isPlaying = true;
+      playSequence();
+    }
+
+    function playSequence() {
+      let time = audioCtx.currentTime + 0.1;
+      notes.forEach((freq, i) => {
+        if (!isPlaying) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.15, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + durations[i]);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(time);
+        osc.stop(time + durations[i]);
+        time += durations[i] + 0.05;
+      });
+      const totalDur = durations.reduce((a, b) => a + b + 0.05, 0);
+      setTimeout(() => { if (isPlaying) playSequence(); }, totalDur * 1000);
+    }
+
+    // ===== ELEMENT SDK =====
+    function applyConfig(config) {
+      const name = config.name || defaultConfig.name;
+      const greeting = config.greeting_text || defaultConfig.greeting_text;
+      const wish = config.wish_text || defaultConfig.wish_text;
+      const bg = config.background_color || defaultConfig.background_color;
+      const surface = config.surface_color || defaultConfig.surface_color;
+      const textCol = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondary = config.secondary_action_color || defaultConfig.secondary_action_color;
+      const font = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+
+      document.getElementById('name-display').textContent = name;
+      document.getElementById('greeting').textContent = greeting;
+      document.getElementById('wish').textContent = wish;
+
+      const app = document.getElementById('app');
+      app.style.background = `linear-gradient(135deg, ${bg} 0%, ${surface}44 50%, ${bg} 100%)`;
+
+      document.getElementById('wish').style.color = textCol;
+      document.getElementById('name-display').style.color = secondary;
+      document.getElementById('name-display').style.textShadow = `0 0 20px ${secondary}80`;
+
+      const btn = document.getElementById('blow-btn');
+      btn.style.background = `linear-gradient(90deg, ${primary}, ${surface})`;
+      btn.style.boxShadow = `0 4px 30px ${surface}80`;
+
+      document.getElementById('ribbon').style.background = `linear-gradient(90deg, ${primary}, ${surface})`;
+      document.getElementById('after-blow').style.color = secondary;
+
+      const greeting_el = document.getElementById('greeting');
+      greeting_el.style.backgroundImage = `linear-gradient(90deg, ${primary}, ${surface}, ${textCol})`;
+
+      // Fonts
+      const fontStack = `${font}, serif`;
+      greeting_el.style.fontFamily = fontStack;
+      document.getElementById('name-display').style.fontFamily = fontStack;
+      document.getElementById('wish').style.fontFamily = `${font}, 'Quicksand', sans-serif`;
+
+      // Font size
+      greeting_el.style.fontSize = `${fontSize * 2.5}px`;
+      document.getElementById('name-display').style.fontSize = `${fontSize * 2}px`;
+      document.getElementById('wish').style.fontSize = `${fontSize * 1.15}px`;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => applyConfig(config),
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+            { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["name", config.name || defaultConfig.name],
+          ["greeting_text", config.greeting_text || defaultConfig.greeting_text],
+          ["wish_text", config.wish_text || defaultConfig.wish_text]
+        ])
+      });
+    }
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eb98361b6679ce7',t:'MTc3NjA3MzI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
